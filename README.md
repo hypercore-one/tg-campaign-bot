@@ -13,5 +13,5 @@ This script manages a Telegram bot that users can query for the latest campaign 
 4. pip install -r requirements.txt
 5. cp example.config.yml config.yml
    - add the keys to the config file
-6. python main.py
+6. python tg-campaign-bot.py
 ```

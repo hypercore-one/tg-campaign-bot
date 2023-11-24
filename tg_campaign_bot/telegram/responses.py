@@ -61,7 +61,7 @@ def scoring(c):
                      f'- Profile hashtags: {format_tags(c["profile_hashtags_criteria"])}\n'
                      f'- Profile cashtags: {format_tags(c["profile_cashtags_criteria"])}\n'
                      f'- Links (posts/profile): \n{format_links(c["link_criteria"])}'
-                     f'- Post character requirement: {c['post_length_criteria']}')
+                     f'- Post character requirement: {c["post_length_criteria"]}')
     return response
 
 

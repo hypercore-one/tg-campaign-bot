@@ -9,7 +9,7 @@ from database.tables import Table
 
 def get_user(username):
     result = unpack(json.loads(APIResponse.model_dump_json(
-        Supabase.client.table(Table.USERS).select('id,username,score').execute())))
+        Supabase.client.table(Table.USERS).select('id,username,score').order('score.desc').execute())))
 
     for i, user in enumerate(result):
         if str(user['username']).lower() == str(username).lower():

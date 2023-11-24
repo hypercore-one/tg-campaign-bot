@@ -11,25 +11,25 @@ def sanitize_output(text):
 
 def format_post_criteria(arr):
     if len(arr) == 1:
-        return arr[0].replace("'", '')
+        return arr[0].replace("'", "")
 
     response = ''
     for tag in arr:
-        response += f'{tag.replace("'", '')}, '
+        response += '{}, '.format(tag.replace("'", ""))
     return response[:-2]
 
 
 def format_tags(arr):
     response = ''
     for tag in arr:
-        response += f'{tag.replace("'", '')}, '
+        response += '{}, '.format(tag.replace("'", ""))
     return response[:-2]
 
 
 def format_links(arr):
     response = ''
     for link in arr:
-        response += f'    - {link.replace("'", '')}\n'
+        response += '    - {}\n'.format(link.replace("'", ""))
     return response
 
 
