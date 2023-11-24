@@ -3,7 +3,6 @@ from telebot import TeleBot
 from config.config import Config
 from database.get_queries import get_top_users, get_user, get_current_campaign
 from telegram.responses import start, info, leaderboard, username, Default, channel, campaign, scoring
-from utils.format import sanitize_output
 from utils.logger import Logger
 
 
@@ -27,7 +26,7 @@ class TelegramHandler:
         self.bot.infinity_polling()
 
     def reply(self, message, text):
-        self.bot.send_message(chat_id=message.chat.id, text=sanitize_output(text), parse_mode='MarkdownV2')
+        self.bot.send_message(chat_id=message.chat.id, text=text, parse_mode='HTML', disable_web_page_preview=True)
 
     def check_rate_limit(self, message):
         if message.chat.id in self.rate_limiter:

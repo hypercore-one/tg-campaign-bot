@@ -6,24 +6,24 @@ from utils.format import format_tags, format_links, format_post_criteria, format
 
 
 class Default(StrEnum):
-    INFO = '`/info`\nlist of commands\n'
-    CAMPAIGN = '`/campaign`\ndisplay current campaign details\n',
-    ANNOUNCEMENTS = '`/announcements`\nchannel link\n',
-    LEADERBOARD = '`/leaderboard`\ntop users in the current campaign\n',
-    USERNAME = '`/username @username`\ncampaign data for any Twitter handle\n'
-    SCORING = '`/scoring`\ndescription of scoring calculation\n'
+    INFO = '/info\nlist of commands\n'
+    CAMPAIGN = '/campaign\ndisplay current campaign details\n',
+    ANNOUNCEMENTS = '/announcements\nchannel link\n',
+    LEADERBOARD = '/leaderboard\ntop users in the current campaign\n',
+    USERNAME = '/username @username\ncampaign data for any Twitter handle\n'
+    SCORING = '/scoring\ndescription of scoring calculation\n'
 
 
 def start(bot_name):
     return ('Welcome, 👽!\n\n'
-            f'*@{bot_name}* is a community-funded Twitter marketing contest.\n'
+            f'<b>@{bot_name}</b> is a community-funded Twitter marketing contest.\n'
             'Top participants will be awarded a prize at the end of each campaign.\n'
             'Other participants will be entered in a raffle.\nTheir chances of winning are based on their scores.\n\n'
-            'Type `/commands` for more info')
+            'Type <b>/commands</b> for more info')
 
 
 def info():
-    return (f'*Commands*\n\n'
+    return (f'<b>Commands</b>\n\n'
             f'{Default.ANNOUNCEMENTS}\n'
             f'{Default.CAMPAIGN}\n'
             f'{Default.SCORING}\n'
@@ -36,20 +36,20 @@ def leaderboard(users):
         return 'No data available'
 
     p = inflect.engine()
-    response = '*Leaderboard*\n'
+    response = '<b>Leaderboard</b>\n'
     for i, user in enumerate(users):
-        response += f'*{p.ordinal(i + 1)}*: @{user["username"]} (*{user["score"]}*)\n'
+        response += f'<b>{p.ordinal(i + 1)}</b>: <a href="https://twitter.com/{user["username"]}">@{user["username"]}</a> (<b>{user["score"]}</b>)\n'
     return response
 
 
 def campaign(c):
-    return (f'*Active Campaign*\n'
-            f'Time remaining: *{format_time(c["end_time"])}*\n'
+    return (f'<b>Active Campaign</b>\n'
+            f'Time remaining: <b>{format_time(c["end_time"])}</b>\n'
             f'Post criteria: {format_post_criteria(c["post_criteria"])}\n')
 
 
 def scoring(c):
-    response = ('*Scoring Information*\n'
+    response = ('<b>Scoring Information</b>\n'
                 'Scores are based on various metrics gathered from Twitter during a campaign, including:\n'
                 '- account age, verified status, follower count, etc.\n'
                 '- profile metadata: description hash/cash tags, links\n'
@@ -57,7 +57,7 @@ def scoring(c):
                 '    - impressions, likes, retweets, etc.\n\n')
 
     if c is not None:
-        response += ('*Valid Data*\n'
+        response += ('<b>Valid Data</b>\n'
                      f'- Profile hashtags: {format_tags(c["profile_hashtags_criteria"])}\n'
                      f'- Profile cashtags: {format_tags(c["profile_cashtags_criteria"])}\n'
                      f'- Links (posts/profile): \n{format_links(c["link_criteria"])}'
@@ -67,9 +67,10 @@ def scoring(c):
 
 def username(user):
     p = inflect.engine()
-    return (f'*@{user["username"]}* is in *{p.ordinal(user["place"])} place*\n'
-            f'Score: *{user["score"]}*\n'
-            f'Posts: *{user["posts"]}*')
+    return (
+        f'<b><a href="https://twitter.com/{user["username"]}">@{user["username"]}</a></b> is in <b>{p.ordinal(user["place"])} place</b>\n'
+        f'Score: <b>{user["score"]}</b>\n'
+        f'Posts: <b>{user["posts"]}</b>')
 
 
 def channel():
