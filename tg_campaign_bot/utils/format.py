@@ -8,7 +8,7 @@ def format_post_criteria(arr):
 
     response = ''
     for tag in arr:
-        response += '{}, '.format(tag.replace("'", ""))
+        response += '{} '.format(tag.replace("'", ""))
     return response[:-2]
 
 
